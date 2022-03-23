@@ -132,5 +132,5 @@ dmypy.json
 credentials.json
 token.json
 .DS_Store
-/imp
+creds.py
 
