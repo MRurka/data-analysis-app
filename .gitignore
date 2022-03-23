@@ -127,3 +127,10 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Other
+credentials.json
+token.json
+.DS_Store
+/imp
+
