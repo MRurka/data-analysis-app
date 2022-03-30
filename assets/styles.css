@@ -29,3 +29,51 @@ h1 {
   padding: 0 !important;
   margin-top: 1rem;
 }
+
+.login-page .row {
+  height: 100vh
+}
+
+.btn-full-width {
+  width: 100%;
+}
+
+body {
+  background-color: #FFF1E1
+}
+
+.login-logo img {
+  width: 100%;
+  margin-top: 8rem;
+  margin-bottom: 2rem;
+}
+
+.form-control {
+  background: none;
+  border: 2px solid #d7c0a7;
+}
+
+.form-control:focus {
+  border-color: #d6c0a7;
+  outline: 0;
+  box-shadow: 0 0 0.2rem 0.2rem rgb(255 221 183);
+}
+
+.btn-primary {
+  font-size: .9rem;
+  border: none;
+  font-weight: 300;
+  background-color: #181a33;
+  color: #f3d8b8;
+  padding: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+}
+.btn-primary:hover,
+.btn-primary:focus {
+  color: #fff1e1;
+  background-color: #25284c;
+}
+.btn-primary:focus {
+  box-shadow: 0 0 0.2rem 0.2rem rgb(255 221 183);
+}
