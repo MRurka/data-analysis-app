@@ -9,10 +9,11 @@ app = Dash(
     suppress_callback_exceptions = True, 
     external_stylesheets = [boot.themes.BOOTSTRAP],
 )
+server = app.server
 
 app.layout = html.Div([
     html.Div(id='page-content'),
-    boot.Container ([   
+    boot.Container ([
         boot.Row([
             boot.Col([
                 html.Div([
