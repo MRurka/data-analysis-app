@@ -57,4 +57,7 @@ def login_user(email, password, n_clicks) :
 # Run Server
 #
 if __name__ == '__main__':
-    app.run_server(debug = False)
+    app.run_server(
+        debug = False,
+        dev_tools_hot_reload = False
+    )
