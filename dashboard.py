@@ -78,6 +78,9 @@ layout = boot.Container ([
                         xaxis = {'title' : 'Date'},
                         yaxis = {'title' : 'Score'},
                     )
+                },
+                config={
+                    'displayModeBar': False
                 }
             )
         )
