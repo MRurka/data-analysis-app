@@ -88,6 +88,8 @@ layout = boot.Container ([
                         title = 'Life Areas',
                         xaxis = {'title' : 'Date'},
                         yaxis = {'title' : 'Score'},
+                        paper_bgcolor = 'rgba(0,0,0,0)',
+                        plot_bgcolor = 'rgba(0,0,0,0)'
                     )
                 },
                 config={
@@ -136,11 +138,19 @@ def update_areas_graph(selected_area, average_slider_value, start_date, end_date
         df_selection,
         trendline = 'rolling',
         trendline_options = dict(window = average_slider_value),
-        title = '{} point moving average'.format(average_slider_value)
+        title = '{} point moving average'.format(average_slider_value),
+        template = 'plotly_dark',
+        height = 600
     )
     fig.data = [t for t in fig.data if t.mode == "lines"]
-    fig.update_traces(showlegend=True)
-
+    fig.update_traces(
+        showlegend = True,
+        line = dict(width = 1)
+    )
+    fig.update_layout(
+        paper_bgcolor='rgba(0,0,0,0)',
+        plot_bgcolor='rgba(0,0,0,0)'
+    )
     return fig
 
 #------------
