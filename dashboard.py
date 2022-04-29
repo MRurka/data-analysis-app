@@ -8,9 +8,9 @@ import pandas as pd
 import dash_bootstrap_components as boot
 import plotly.express as px
 
-########################
-##   MAIN DATAFRAME   ##
-########################
+#------------
+#------------ DataFrames
+#------------
 
 # Dataframe for All Data Columns
 df = google_sheet_data
@@ -103,7 +103,10 @@ layout = boot.Container ([
     )
 ])
 
-################# Update Graph #################
+
+#------------
+#------------ Update Graph 
+#------------
 
 @callback(
     Output('areas-graph','figure'),
@@ -140,8 +143,9 @@ def update_areas_graph(selected_area, average_slider_value, start_date, end_date
 
     return fig
 
-
-################# Show journal entry on hover #################
+#------------
+#------------ Show Journal Entry on Hover
+#------------
 
 @callback(
     Output('daily-journal','children'),
