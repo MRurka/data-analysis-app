@@ -27,8 +27,17 @@ df = df.replace({
     'Great': 5
 })
 
-layout = boot.Container ([
+# Dataframe for Areas
+df_areas = []
+for i in df.loc[:,'H - Health Phys' : 'H - Life Overall']:
+    df_areas.append(i)
 
+#------------
+#------------ Layout
+#------------
+
+layout = boot.Container ([
+    
     boot.Row(
         boot.Col(
             html.H1('Life Areas')
@@ -39,7 +48,8 @@ layout = boot.Container ([
             html.H6('Areas'),
             dcc.Dropdown(
                 id = 'areas-dropdown',
-                options = [{'label' : i, 'value' : i} for i in df.loc[:,'H - Health Phys' : 'H - Life Overall']],
+                options = [{'label' : i, 'value' : i} for i in df_areas],
+                value = df_areas,
                 multi = True,
             ),
         ]),
