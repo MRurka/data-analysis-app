@@ -65,6 +65,7 @@ layout = boot.Container ([
                 max = 60,
                 step = 1,
                 value = 12,
+                marks = None
             ),
         ])
     ]),
