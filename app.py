@@ -11,6 +11,8 @@ app = Dash(
 )
 server = app.server
 
+USER_UID = ""
+
 app.layout = html.Div([
     html.Div(id='page-content'),
     boot.Container ([
@@ -45,10 +47,17 @@ app.layout = html.Div([
     Input('login-button', 'n_clicks')
 )
 def login_user(email, password, n_clicks) :
+    print('Login function start')
     if n_clicks :
+        print('login func: Registered click')
         try : 
-            auth.sign_in_with_email_and_password(email, password)
-            print("Login successful")
+            user = auth.sign_in_with_email_and_password(email, password)
+            print('email + pass correct')
+            global USER_UID
+            USER_UID = user['localId']
+            print(f"User's UID is: {USER_UID}")
+            print(f"User's email is: {dataConfig[USER_UID]['user']}")
+            print("Login successful. Returning dashboard.")
             return dashboard.layout, " ", " " # Return dashboard and hide login content
         except :
             print("Login failed")
@@ -58,6 +67,6 @@ def login_user(email, password, n_clicks) :
 #
 if __name__ == '__main__':
     app.run_server(
-        debug = False,
+        debug = True,
         dev_tools_hot_reload = False
     )
