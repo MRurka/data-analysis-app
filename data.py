@@ -1,9 +1,10 @@
 import pandas as pd
+from creds import sheetID, sheetRange
 
-from google_sheets import google_sheet_data
+from google_sheets import get_sheets_data
 
 # Dataframe for All Data Columns
-df = google_sheet_data
+df = get_sheets_data(sheetID, sheetRange)
 
 # Convert Date Strings to datetime
 df['Date'] = pd.to_datetime(df['Date'], format='%A, %B %d, %Y at %I:%M %p')
