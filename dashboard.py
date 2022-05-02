@@ -1,36 +1,12 @@
 from dash import dcc, html, callback
 from dash import Input, Output
 from datetime import date
-from google_sheets import google_sheet_data
+from data import df, df_areas
 
 import plotly.graph_objs as go
-import pandas as pd
 import dash_bootstrap_components as boot
 import plotly.express as px
 
-#------------
-#------------ DataFrames
-#------------
-
-# Dataframe for All Data Columns
-df = google_sheet_data
-
-# Convert Date Strings to datetime
-df['Date'] = pd.to_datetime(df['Date'], format='%A, %B %d, %Y at %I:%M %p')
-
-# Replace String Values w/ Numbers
-df = df.replace({
-    'Bad'  : 1,
-    'Meh'  : 2,
-    'Okay' : 3,
-    'Good' : 4,
-    'Great': 5
-})
-
-# Dataframe for Areas
-df_areas = []
-for i in df.loc[:,'H - Health Phys' : 'H - Life Overall']:
-    df_areas.append(i)
 
 #------------
 #------------ Layout
