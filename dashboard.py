@@ -1,7 +1,7 @@
 from dash import dcc, html, callback
 from dash import Input, Output
 from datetime import date
-from data import df, df_areas
+from app import df, df_areas
 
 import plotly.graph_objs as go
 import dash_bootstrap_components as boot
@@ -78,9 +78,25 @@ layout = boot.Container ([
         boot.Col(
             dcc.Markdown(id = 'daily-journal')
         )
-    )
+    ),
+    boot.Row(
+        boot.Col([
+            html.Button(id = 'db-test-button'),
+            html.Div(id="db-test-response")
+        ])
+    ),
 ])
 
+#------------
+#------------ Test DB
+#------------
+
+@callback(
+    Output('db-test-response','children'),
+    Input('db-test-button','n_clicks')
+)
+def check_database():
+    pass
 
 #------------
 #------------ Update Graph 
@@ -116,7 +132,7 @@ def update_areas_graph(selected_area, average_slider_value, start_date, end_date
         trendline_options = dict(window = average_slider_value),
         title = '{} point moving average'.format(average_slider_value),
         template = 'plotly_dark',
-        height = 600
+        height = 700
     )
     fig.data = [t for t in fig.data if t.mode == "lines"]
     fig.update_traces(
