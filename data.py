@@ -35,6 +35,8 @@ def get_data(collection, field, user_uid):
 
     df['creation_date'] = pd.to_datetime(df['creation_date'], format='%A, %B %d, %Y at %I:%M %p')
 
+    df = df.reset_index(drop=True)
+
     return df
 
 
