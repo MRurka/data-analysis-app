@@ -179,18 +179,19 @@ def login_user(email, password, n_clicks) :
 )
 def update_areas_graph(selected_area, average_slider_value, start_date, end_date) :
 
+    print(f"selected area is: {selected_area}")
+
     df_selection = df[selected_area] # Create new dataframe using dropdown selection
-
-    print(f"ONE: {df_selection}")
-
     df_selection = pd.DataFrame(df_selection)
 
-    print(f"TWO: {df_selection}")
+    print("—————————————— ONE ")
+    print(df_selection)
 
-    df_selection = df_selection.join(df['creation_date']) # Add Date to Selection dataframe
-    # df_selection = pd.concat([df_selection, df['creation_date']], axis=0)
+    df_selection = pd.concat([df_selection, df['creation_date']], axis=1)
 
-    print(f"THREE: {df_selection}")
+    print("—————————————— TWO ")
+    print(df_selection)
+
 
     # Replace start & end dates with min/max when datepicker is empty
     if start_date == None :
@@ -198,11 +199,23 @@ def update_areas_graph(selected_area, average_slider_value, start_date, end_date
     if end_date == None :
         end_date = df_selection['creation_date'].max()
 
+    print(f"Creation date MIN: {df_selection['creation_date'].min()}")
+    print(f"Creation date MAX: {df_selection['creation_date'].max()}")
+
+    print("—————————————— THREE ")
+    print(df_selection)
+
     # Filter dataframe by date range
-    df_selection = df_selection[(df_selection['creation_date'] > start_date) & (df_selection['creation_date'] < end_date)]
+    # ——————————————————— Something here doesn't work. 
+    # df_selection = df_selection[(df_selection['creation_date'] >= start_date) & (df_selection['creation_date'] <= end_date)]
+
+    print("—————————————— FOUR ")
+    print(df_selection)
+
     df_selection.set_index('creation_date', inplace = True) # Set Date as Index
 
-    # print(df_selection.head)
+    print("—————————————— FIVE ")
+    print(df_selection)
 
     fig = px.scatter(
         df_selection,
