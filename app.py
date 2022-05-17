@@ -2,12 +2,14 @@ from dash import Dash, dcc, html, callback
 from dash import Input, Output
 import dash_bootstrap_components as boot
 from authentication import auth
-from data import get_data
+from data import get_data, create_areas_df
 from datetime import date
 import plotly.graph_objs as go
 import dash_bootstrap_components as boot
 import plotly.express as px
 import pandas as pd
+
+pd.set_option("display.max_columns", None)
 
 app = Dash(
     __name__, 
@@ -46,6 +48,43 @@ app.layout = html.Div([
         ], justify="center" ), # Row
     ], id = "login-content", className = "login-page")
 ])
+
+
+#------------
+#------------ Login 
+#------------
+
+@callback(
+    Output('page-content', 'children'),
+    Output('login-content', 'children'),
+    Output('login-response', 'children'),
+    Input('login-email', 'value'),
+    Input('login-password', 'value'),
+    Input('login-button', 'n_clicks')
+)
+def login_user(email, password, n_clicks) :
+    print('check_credentials function called')
+    if n_clicks :
+        print('Click registered')
+        try : 
+            user = auth.sign_in_with_email_and_password(email, password)
+            print('email + pass correct')
+            global USER_UID
+            USER_UID = user['localId']
+            print(f"User's UID is: {USER_UID}")
+            global df
+            df = get_data('life_areas', 'created_by', USER_UID)
+            global df_areas
+            df_areas = create_areas_df(df)
+            print(f"data returned from the user: {df}")
+            print(f"areas dataframe is: {df_areas}")
+            print("Login successful. Returning dashboard.")
+            return dashboard, " ", " " # Return dashboard and hide login content
+        except :
+            print("Login failed")
+            return " ", app.layout, "Your email or password is incorrect. Please try again :)"
+
+
 
 dashboard = boot.Container ([
     
@@ -131,40 +170,6 @@ dashboard = boot.Container ([
         ])
     ),
 ])
-
-
-#------------
-#------------ Login 
-#------------
-
-@callback(
-    Output('page-content', 'children'),
-    Output('login-content', 'children'),
-    Output('login-response', 'children'),
-    Input('login-email', 'value'),
-    Input('login-password', 'value'),
-    Input('login-button', 'n_clicks')
-)
-def login_user(email, password, n_clicks) :
-    print('check_credentials function called')
-    if n_clicks :
-        print('Click registered')
-        try : 
-            user = auth.sign_in_with_email_and_password(email, password)
-            print('email + pass correct')
-            global USER_UID
-            USER_UID = user['localId']
-            print(f"User's UID is: {USER_UID}")
-            global df
-            df = get_data('life_areas', 'created_by', USER_UID)
-            global df_areas
-            df_areas = get_data('life_areas', 'created_by', USER_UID)
-            print(f"data returned from the user: {df}")
-            print("Login successful. Returning dashboard.")
-            return dashboard, " ", " " # Return dashboard and hide login content
-        except :
-            print("Login failed")
-            return " ", app.layout, "Your email or password is incorrect. Please try again :)"
 
 
 #------------
