@@ -240,14 +240,14 @@ def update_areas_graph(selected_area, average_slider_value, start_date, end_date
 #------------ Show Journal Entry on Hover
 #------------
 
-# @callback(
-#     Output('daily-journal','children'),
-#     Input('areas-graph','hoverData')
-# )
-# def display_journal(hoverData) :
-#     v_index = hoverData['points'][0]['pointIndex']
-#     stats = """ {} """.format(df.iloc[v_index]['What happened?'])
-#     return stats
+@callback(
+    Output('daily-journal','children'),
+    Input('areas-graph','hoverData')
+)
+def display_journal(hoverData) :
+    v_index = hoverData['points'][0]['pointIndex']
+    stats = """ {} """.format(df.iloc[v_index]['day_journal'])
+    return stats
 
 
 # Run Server
