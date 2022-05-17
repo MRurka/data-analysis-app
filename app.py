@@ -59,17 +59,18 @@ dashboard = boot.Container ([
             html.H6('Areas'),
             dcc.Dropdown(
                 id = 'areas-dropdown',
-                # options = [{'label' : i, 'value' : i} for i in df],
-                # options = [{'Career' : 'area_score_career'}],
                 options=[
-                    {'label': 'area_score_career', 'value': 'area_score_career'},
-                    {'label': 'area_score_family', 'value': 'area_score_family'},
-                    {'label': 'area_score_relationship', 'value': 'area_score_relationship'},
-                    {'label': 'area_score_social', 'value': 'area_score_social'},
-                    {'label': 'area_score_overall_life', 'value': 'area_score_overall_life'}
+                    {'label': 'area_score_physical', 'value': 'area_score_physical_health'},
+                    {'label': 'Mental Health', 'value': 'area_score_mental_health'},
+                    {'label': 'Career', 'value': 'area_score_career'},
+                    {'label': 'Finance', 'value': 'area_score_finance'},
+                    {'label': 'Self Expression', 'value': 'area_score_self_expression'},
+                    {'label': 'Relationship', 'value': 'area_score_relationship'},
+                    {'label': 'Social', 'value': 'area_score_social'},
+                    {'label': 'Family', 'value': 'area_score_family'},
+                    {'label': 'Overall Life', 'value': 'area_score_overall_life'}
                 ],
-                # value = df,
-                value = 'area_score_career',
+                value = '',
                 multi = True,
             ),
         ]),
