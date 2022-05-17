@@ -95,7 +95,7 @@ dashboard = boot.Container ([
                 min = 1,
                 max = 60,
                 step = 1,
-                value = 12,
+                value = 1,
                 marks = None
             ),
         ])
