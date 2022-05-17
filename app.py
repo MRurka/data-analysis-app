@@ -73,20 +73,20 @@ dashboard = boot.Container ([
                 multi = True,
             ),
         ]),
-        boot.Col([
-            html.H6('Date Range'),
-            dcc.DatePickerRange(
-                id = 'date-picker',
-                display_format='MMM D, YYYY',
-                max_date_allowed = date.today(),
-                # end_date = date.today(),
-                start_date_placeholder_text = 'Start date',
-                end_date_placeholder_text = 'End date',
-                first_day_of_week = 1, # Set calendar to Mon - Sun
-                clearable = True, # Show 'X' in UI to clear
-                day_size = 39, # Rendered calendar size
-            ),
-        ]),
+        # boot.Col([
+        #     html.H6('Date Range'),
+        #     dcc.DatePickerRange(
+        #         id = 'date-picker',
+        #         display_format='MMM D, YYYY',
+        #         max_date_allowed = date.today(),
+        #         # end_date = date.today(),
+        #         start_date_placeholder_text = 'Start date',
+        #         end_date_placeholder_text = 'End date',
+        #         first_day_of_week = 1, # Set calendar to Mon - Sun
+        #         clearable = True, # Show 'X' in UI to clear
+        #         day_size = 39, # Rendered calendar size
+        #     ),
+        # ]),
         boot.Col([
             html.H6('Moving Average Value'),
             dcc.Slider(
@@ -174,10 +174,10 @@ def login_user(email, password, n_clicks) :
     Output('areas-graph','figure'),
     Input('areas-dropdown','value'),
     Input('average-slider','value'),
-    Input('date-picker', 'start_date'),
-    Input('date-picker', 'end_date'),
+    # Input('date-picker', 'start_date'),
+    # Input('date-picker', 'end_date'),
 )
-def update_areas_graph(selected_area, average_slider_value, start_date, end_date) :
+def update_areas_graph(selected_area, average_slider_value) :
 
     print(f"selected area is: {selected_area}")
 
@@ -192,15 +192,11 @@ def update_areas_graph(selected_area, average_slider_value, start_date, end_date
     print("—————————————— TWO ")
     print(df_selection)
 
-
     # Replace start & end dates with min/max when datepicker is empty
-    if start_date == None :
-        start_date = df_selection['creation_date'].min()
-    if end_date == None :
-        end_date = df_selection['creation_date'].max()
-
-    print(f"Creation date MIN: {df_selection['creation_date'].min()}")
-    print(f"Creation date MAX: {df_selection['creation_date'].max()}")
+    # if start_date == None :
+    #     start_date = df_selection['creation_date'].min()
+    # if end_date == None :
+    #     end_date = df_selection['creation_date'].max()
 
     print("—————————————— THREE ")
     print(df_selection)
@@ -209,8 +205,8 @@ def update_areas_graph(selected_area, average_slider_value, start_date, end_date
     # ——————————————————— Something here doesn't work. 
     # df_selection = df_selection[(df_selection['creation_date'] >= start_date) & (df_selection['creation_date'] <= end_date)]
 
-    print("—————————————— FOUR ")
-    print(df_selection)
+    # print("—————————————— FOUR ")
+    # print(df_selection)
 
     df_selection.set_index('creation_date', inplace = True) # Set Date as Index
 
