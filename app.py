@@ -1,6 +1,5 @@
 from dash import Dash, dcc, html, callback
 from dash import Input, Output
-import dash_bootstrap_components as boot
 from authentication import auth
 from data import get_data, create_areas_df
 import plotly.graph_objs as go
