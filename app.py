@@ -3,7 +3,6 @@ from dash import Input, Output
 import dash_bootstrap_components as boot
 from authentication import auth
 from data import get_data, create_areas_df
-from datetime import date
 import plotly.graph_objs as go
 import dash_bootstrap_components as boot
 import plotly.express as px

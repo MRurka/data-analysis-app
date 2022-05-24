@@ -2,10 +2,41 @@ import pandas as pd
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
-import pandas as pd
+from datetime import datetime
+from dateutil import tz
 
 cred = credentials.Certificate('serviceAccountKey.json')
 firebase_admin.initialize_app(cred)
+
+def remove_timezone(timestamp):
+    date_without_timezone = timestamp
+    # Convert to date
+    date_without_timezone = pd.to_datetime(date_without_timezone)
+    # Remove +01:00
+    date_without_timezone = date_without_timezone.strftime('%Y-%m-%d %H:%M:%S')
+    # -> '2019-02-21 15:31:37'
+    return date_without_timezone
+
+
+def convert_datetime_timezones(timestamp):
+    # Auto-detect zones:
+    from_zone = tz.tzutc()
+    to_zone = tz.tzlocal()
+    # utc = datetime.utcnow()
+    utc = datetime.strptime(timestamp, '%Y-%m-%d %H:%M:%S')
+    # Tell the datetime object that it's in UTC time zone since 
+    # datetime objects are 'naive' by default
+    utc = utc.replace(tzinfo=from_zone)
+    # Convert time zone
+    local_datetime = utc.astimezone(to_zone)
+    local_datetime = local_datetime.strftime('%Y-%m-%d %H:%M:%S')
+    return local_datetime
+
+
+def utc_to_local(timestamp):
+    new_date = convert_datetime_timezones(remove_timezone(timestamp))
+    return new_date
+
 
 def get_data(collection, field, user_uid):
     
@@ -32,9 +63,16 @@ def get_data(collection, field, user_uid):
     })
 
     # Format date
-    df['creation_date'] = pd.to_datetime(df['creation_date'], format='%A, %B %d, %Y at %I:%M %p')
+    for timestamp in df['creation_date']:
+        # Generate proper date (new date)
+        new_date = utc_to_local(timestamp)
+        # Replace original date with new date
+        df = df.replace(timestamp, new_date)
 
-    # Reset the dataframes Index
+    # Sort by Date
+    df = df.sort_values(by=['creation_date'])
+
+    # Reset Index
     df = df.reset_index(drop=True)
 
     return df
@@ -50,3 +88,9 @@ def create_areas_df(dataframe):
         df_areas.append(i)
 
     return df_areas
+
+
+# # For testing purposes
+# pd.set_option("display.max_columns", None)
+# data = get_data('life_areas', 'created_by', 'Z6vMdScziWY3ciTdqgfoU29Bwpc2')
+# print(data)
