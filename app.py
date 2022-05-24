@@ -98,7 +98,7 @@ dashboard = boot.Container ([
             dcc.Dropdown(
                 id = 'areas-dropdown',
                 options=[
-                    {'label': 'area_score_physical', 'value': 'area_score_physical_health'},
+                    {'label': 'Physical Health', 'value': 'area_score_physical_health'},
                     {'label': 'Mental Health', 'value': 'area_score_mental_health'},
                     {'label': 'Career', 'value': 'area_score_career'},
                     {'label': 'Finance', 'value': 'area_score_finance'},
@@ -108,8 +108,9 @@ dashboard = boot.Container ([
                     {'label': 'Family', 'value': 'area_score_family'},
                     {'label': 'Overall Life', 'value': 'area_score_overall_life'}
                 ],
-                value = '',
                 multi = True,
+                value = ['area_score_physical_health', 'area_score_mental_health', 'area_score_career', 'area_score_finance', 'area_score_self_expression', 'area_score_relationship', 'area_score_social', 'area_score_family', 'area_score_overall_life'],
+
             ),
         ]),
         # boot.Col([
@@ -218,18 +219,48 @@ def update_areas_graph(selected_area, average_slider_value) :
     print("—————————————— FIVE ")
     print(df_selection)
 
+    color_discrete_map = {
+        'area_score_physical_health' : 'rgb(83,179,139)',
+        'area_score_mental_health' : 'rgb(183,65,202)',
+        'area_score_career' : 'rgb(123,97,255)',
+        'area_score_finance' : 'rgb(42,90,215)',
+        'area_score_self_expression' : 'rgb(99,208,239)',
+        'area_score_relationship' : 'rgb(255,151,179)',
+        'area_score_social' : 'rgb(236,97,97)',
+        'area_score_family' : 'rgb(242,165,103)',
+        'area_score_overall_life' : 'rgb(255,249,109)'
+    }
+
     fig = px.scatter(
         df_selection,
         trendline = 'rolling',
         trendline_options = dict(window = average_slider_value),
         title = '{} point moving average'.format(average_slider_value),
         template = 'plotly_dark',
-        height = 700
+        height = 700,
+        color_discrete_map = color_discrete_map,
     )
     fig.data = [t for t in fig.data if t.mode == "lines"]
     fig.update_traces(
         showlegend = True,
         line = dict(width = 1)
+    )
+    # Set legend names 
+    newnames = {
+        'area_score_physical_health' : 'Physical Health',
+        'area_score_mental_health' : 'Mental Health',
+        'area_score_career' : 'Career',
+        'area_score_finance' : 'Finance',
+        'area_score_self_expression' : 'Self Expression',
+        'area_score_relationship' : 'Relationship',
+        'area_score_social' : 'Social',
+        'area_score_family' : 'Family',
+        'area_score_overall_life' : 'Overall Life'
+    }
+    fig.for_each_trace(lambda t: t.update(name = newnames[t.name],
+                        legendgroup = newnames[t.name],
+                        hovertemplate = t.hovertemplate.replace(t.name, newnames[t.name])
+                        )
     )
     fig.update_layout(
         paper_bgcolor='rgba(0,0,0,0)',
