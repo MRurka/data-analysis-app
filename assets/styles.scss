@@ -1,27 +1,39 @@
 
 // Colors
-$deep-blue: #131525;
-$ghost-blue: #282c4b;
-$mid-blue: #434978;
+
+$primary: #cea16b;
+// $secondary: #000000;
+// $tertiary: #000000;
+$primary-background: #181920;
+$secondary-background: #20212B;
+$primary-text: #E0E3E7;
+$secondary-text: #B7B9CB;
+
+
+$deep-blue: #181920;
+$ghost-blue: #20212B;
+$mid-blue: #353748;
 $latte: #f3d8b8;
 $cream: #fcebd8;
 $caramel: #daa85b;
 
 // Template
 $body-background-color: $deep-blue;
+$border-radius-standard: .5rem;
 
 // Typography
-$body-text-color: $cream;
+$body-text-color: $primary-text;
 $body-text-weight: 300;
 
 // Form Fields
 $form-border-color: $ghost-blue;
+$form-background-color: $secondary-background;
 $form-focus-color: $ghost-blue;
 
 // Buttons
-$button-background-color: $cream;
+$button-background-color: $primary;
 $button-text-color: $deep-blue;
-$button-text-color-hover: $ghost-blue;
+$button-text-color-hover: #bc8e58;
 
 
 body {
@@ -51,7 +63,7 @@ h1 {
 
 .DateRangePickerInput__withBorder,
 .Select-control {
-  border: 2px solid $form-border-color;
+  border-color: $form-border-color;
   border-radius: 6px;
   font-weight:  400;
 }
@@ -73,39 +85,53 @@ h1 {
   width: 100%;
 }
 
+.login-logo {
+  display: grid;
+  justify-content: center;
+}
+
 .login-logo img {
-  width: 100%;
+  width: 200px;
   margin-top: 8rem;
   margin-bottom: 2rem;
 }
 
+.form-label {
+  font-size: 0.9rem;
+  color: $secondary-text;
+  font-weight: $body-text-weight;
+}
+
 .form-control {
-  background: none;
+  padding: 1rem 1.5rem;
+  background: $form-background-color;
   color: $body-text-color;
   font-weight: $body-text-weight;
-  border: 2px solid $form-border-color;
+  border: 0;
+  border-radius: $border-radius-standard;
 }
 
 .form-control:focus {
-  border-color: $form-border-color;
-  outline: 0;
-  box-shadow: 0 0 0.2rem 0.2rem $form-focus-color;
+  color: $primary-text;
+  border: 0;
+  background: $form-background-color;
+  box-shadow: 0 0 0 2px #353748;
 }
 
 .btn-primary {
-  font-size: .9rem;
+  font-size: 0.9rem;
   border: none;
-  font-weight: 300;
+  font-weight: 400;
   background-color: $button-background-color;
   color: $button-text-color;
-  padding: 0.6rem;
+  padding: 1rem;
   text-transform: uppercase;
-  letter-spacing: 4px;
+  letter-spacing: 2px;
+  border-radius: $border-radius-standard;
 }
 
 .btn-primary:hover,
 .btn-primary:focus {
-  color: $button-text-color;
   background-color: $button-text-color-hover;
 }
 

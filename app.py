@@ -38,7 +38,7 @@ app.layout = html.Div([
                 html.Div([
                     boot.Label("Password", html_for="login-password"),
                     boot.Input(id = "login-password", type = "password", placeholder = "")
-                ], className = "mb-3"),
+                ], className = "mb-4"),
 
                 boot.Button('Login', id = "login-button", color = "primary", className = "btn-full-width"),
                 boot.FormText(id = "login-response"),
@@ -285,6 +285,6 @@ def display_journal(hoverData) :
 # Run Server
 if __name__ == '__main__':
     app.run_server(
-        debug = True,
+        debug = False,
         dev_tools_hot_reload = False
     )
