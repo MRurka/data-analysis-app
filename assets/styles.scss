@@ -4,8 +4,9 @@
 $primary: #cea16b;
 // $secondary: #000000;
 // $tertiary: #000000;
-$primary-background: #181920;
-$secondary-background: #20212B;
+$primary-background: #16161d;
+$secondary-background: #20202b;
+$tertiary-background: #272735;
 $primary-text: #E0E3E7;
 $secondary-text: #B7B9CB;
 
@@ -20,6 +21,7 @@ $caramel: #daa85b;
 // Template
 $body-background-color: $deep-blue;
 $border-radius-standard: .5rem;
+$nav-height: 90px;
 
 // Typography
 $body-text-color: $primary-text;
@@ -27,7 +29,7 @@ $body-text-weight: 300;
 
 // Form Fields
 $form-border-color: $ghost-blue;
-$form-background-color: $secondary-background;
+$form-background-color: $tertiary-background;
 $form-focus-color: $ghost-blue;
 
 // Buttons
@@ -46,8 +48,43 @@ body {
   max-width: 1600px;
 }
 
+header {
+  height: $nav-height;
+}
+    
+.header-logo img {
+  height: 28px;
+  width: auto;
+  margin-top: 32px;
+}
+
+.header-nav {
+  ul {
+    text-align: right;
+    margin-top: 35px;
+    font-weight: 300;
+  }
+  li {
+    list-style: none;
+  }
+}
+
+.login-page {
+  height: calc(100vh - ( #{$nav-height} * 2));
+  min-height: 600px;
+
+  h3 {
+    text-align: center;
+  }
+}
+
+.card {
+  padding: 2rem;
+  background: $secondary-background;
+  border-radius: 1rem;
+}
+
 h1 {
-  margin-top: 4rem;
   margin-bottom: 1rem;
 }
 
@@ -75,10 +112,6 @@ h1 {
 #average-slider {
   padding: 0 !important;
   margin-top: 1rem;
-}
-
-.login-page .row {
-  height: 100vh;
 }
 
 .btn-full-width {

@@ -22,29 +22,48 @@ df_areas = []
 
 app.layout = html.Div([
     html.Div(id='page-content'),
-    boot.Container ([
-        boot.Row([
-            boot.Col([
-                html.Div([
-                    html.Img(src="assets/logo.svg")
-                ], className = "login-logo"),
-       
-                html.Div([
-                    boot.Label("Email", html_for="login-email"),
-                    boot.Input(id = "login-email", type = "email", placeholder = "", autoFocus = "autofocus")
-                ], className = "mb-3"),
+    html.Section([
+        html.Header(
+            boot.Container([
+                boot.Row([
+                    boot.Col([
+                        boot.Row([
+                            html.Img(src="assets/logo.svg")
+                        ], className = 'header-logo', align='center')
+                    ], width = 3),
+                    boot.Col([
+                        boot.Row([
+                            html.Ul(
+                                html.Li('Fake Name', id="nav-username")
+                            )
+                        ], className = 'header-nav', align='center')
+                    ], width = 3)
+                ], justify="between")
+            ])
+        ),
+        boot.Container ([
+            boot.Row([
+                boot.Col([
+                    html.Div([
+                        html.H3('Login'),
+                        html.Div([
+                            boot.Label("Email", html_for="login-email"),
+                            boot.Input(id = "login-email", type = "email", placeholder = "", autoFocus = "autofocus")
+                        ], className = "mb-3"),
 
-                html.Div([
-                    boot.Label("Password", html_for="login-password"),
-                    boot.Input(id = "login-password", type = "password", placeholder = "")
-                ], className = "mb-4"),
+                        html.Div([
+                            boot.Label("Password", html_for="login-password"),
+                            boot.Input(id = "login-password", type = "password", placeholder = "")
+                        ], className = "mb-4"),
 
-                boot.Button('Login', id = "login-button", color = "primary", className = "btn-full-width"),
-                boot.FormText(id = "login-response"),
-            ], width = 3 ), # Col
-            
-        ], justify="center" ), # Row
-    ], id = "login-content", className = "login-page")
+                        boot.Button('Login', id = "login-button", color = "primary", className = "btn-full-width"),
+                        boot.FormText(id = "login-response"),
+
+                    ], className='card')
+                ], width = 3)
+            ], justify="center", align='center', className='login-page')
+        ])
+    ], id="login-content", className="login-page") # Section
 ])
 
 
@@ -84,90 +103,88 @@ def login_user(email, password, n_clicks) :
 
 
 
-dashboard = boot.Container ([
-    
-    boot.Row(
-        boot.Col(
-            html.H1('Life Areas')
-        )
-    ),
-    boot.Row([
-        boot.Col([
-            html.H6('Areas'),
-            dcc.Dropdown(
-                id = 'areas-dropdown',
-                options=[
-                    {'label': 'Physical Health', 'value': 'area_score_physical_health'},
-                    {'label': 'Mental Health', 'value': 'area_score_mental_health'},
-                    {'label': 'Career', 'value': 'area_score_career'},
-                    {'label': 'Finance', 'value': 'area_score_finance'},
-                    {'label': 'Self Expression', 'value': 'area_score_self_expression'},
-                    {'label': 'Relationship', 'value': 'area_score_relationship'},
-                    {'label': 'Social', 'value': 'area_score_social'},
-                    {'label': 'Family', 'value': 'area_score_family'},
-                    {'label': 'Overall Life', 'value': 'area_score_overall_life'}
-                ],
-                multi = True,
-                value = ['area_score_physical_health', 'area_score_mental_health', 'area_score_career', 'area_score_finance', 'area_score_self_expression', 'area_score_relationship', 'area_score_social', 'area_score_family', 'area_score_overall_life'],
+dashboard = html.Div ([
 
+    # HEADER
+    # ...
+
+    # CONTENT
+    boot.Container([
+        html.Div([
+
+            # HEADING
+            boot.Row(
+                boot.Col(
+                    html.H1('Life Areas')
+                )
             ),
-        ]),
-        # boot.Col([
-        #     html.H6('Date Range'),
-        #     dcc.DatePickerRange(
-        #         id = 'date-picker',
-        #         display_format='MMM D, YYYY',
-        #         max_date_allowed = date.today(),
-        #         # end_date = date.today(),
-        #         start_date_placeholder_text = 'Start date',
-        #         end_date_placeholder_text = 'End date',
-        #         first_day_of_week = 1, # Set calendar to Mon - Sun
-        #         clearable = True, # Show 'X' in UI to clear
-        #         day_size = 39, # Rendered calendar size
-        #     ),
-        # ]),
-        boot.Col([
-            html.H6('Moving Average Value'),
-            dcc.Slider(
-                id = 'average-slider',
-                min = 1,
-                max = 60,
-                step = 1,
-                value = 1,
-                marks = None
-            ),
-        ])
-    ]),
-    boot.Row(
-        boot.Col(
-            dcc.Graph(
-                id = 'areas-graph',
-                figure = {
-                    'layout' : go.Layout(
-                        title = 'Life Areas',
-                        xaxis = {'title' : 'creation_date'},
-                        yaxis = {'title' : 'Score'},
-                        paper_bgcolor = 'rgba(0,0,0,0)',
-                        plot_bgcolor = 'rgba(0,0,0,0)'
+
+            # AREAS DROPDOWN
+            boot.Row([
+                boot.Col([
+                    html.H6('Areas'),
+                    dcc.Dropdown(
+                        id = 'areas-dropdown',
+                        options=[
+                            {'label': 'Physical Health', 'value': 'area_score_physical_health'},
+                            {'label': 'Mental Health', 'value': 'area_score_mental_health'},
+                            {'label': 'Career', 'value': 'area_score_career'},
+                            {'label': 'Finance', 'value': 'area_score_finance'},
+                            {'label': 'Self Expression', 'value': 'area_score_self_expression'},
+                            {'label': 'Relationship', 'value': 'area_score_relationship'},
+                            {'label': 'Social', 'value': 'area_score_social'},
+                            {'label': 'Family', 'value': 'area_score_family'},
+                            {'label': 'Overall Life', 'value': 'area_score_overall_life'}
+                        ],
+                        multi = True,
+                        value = ['area_score_physical_health', 'area_score_mental_health', 'area_score_career', 'area_score_finance', 'area_score_self_expression', 'area_score_relationship', 'area_score_social', 'area_score_family', 'area_score_overall_life'],
+
+                    ),
+                ]),
+                boot.Col([
+                    html.H6('Moving Average Value'),
+                    dcc.Slider(
+                        id = 'average-slider',
+                        min = 1,
+                        max = 60,
+                        step = 1,
+                        value = 1,
+                        marks = None
+                    ),
+                ])
+            ]),
+            boot.Row(
+                boot.Col(
+                    dcc.Graph(
+                        id = 'areas-graph',
+                        figure = {
+                            'layout' : go.Layout(
+                                title = 'Life Areas',
+                                xaxis = {'title' : 'creation_date'},
+                                yaxis = {'title' : 'Score'},
+                                paper_bgcolor = 'rgba(0,0,0,0)',
+                                plot_bgcolor = 'rgba(0,0,0,0)'
+                            )
+                        },
+                        config={
+                            'displayModeBar': False
+                        }
                     )
-                },
-                config={
-                    'displayModeBar': False
-                }
-            )
-        )
-    ),
-    boot.Row(
-        boot.Col(
-            dcc.Markdown(id = 'daily-journal')
-        )
-    ),
-    boot.Row(
-        boot.Col([
-            html.Button(id = 'db-test-button'),
-            html.Div(id="db-test-response")
-        ])
-    ),
+                )
+            ),
+            boot.Row(
+                boot.Col(
+                    dcc.Markdown(id = 'daily-journal')
+                )
+            ),
+            boot.Row(
+                boot.Col([
+                    html.Button(id = 'db-test-button'),
+                    html.Div(id="db-test-response")
+                ])
+            ),
+        ], className='card') # div
+    ])
 ])
 
 
@@ -179,8 +196,6 @@ dashboard = boot.Container ([
     Output('areas-graph','figure'),
     Input('areas-dropdown','value'),
     Input('average-slider','value'),
-    # Input('date-picker', 'start_date'),
-    # Input('date-picker', 'end_date'),
 )
 def update_areas_graph(selected_area, average_slider_value) :
 
@@ -188,35 +203,8 @@ def update_areas_graph(selected_area, average_slider_value) :
 
     df_selection = df[selected_area] # Create new dataframe using dropdown selection
     df_selection = pd.DataFrame(df_selection)
-
-    print("—————————————— ONE ")
-    print(df_selection)
-
-    df_selection = pd.concat([df_selection, df['creation_date']], axis=1)
-
-    print("—————————————— TWO ")
-    print(df_selection)
-
-    # Replace start & end dates with min/max when datepicker is empty
-    # if start_date == None :
-    #     start_date = df_selection['creation_date'].min()
-    # if end_date == None :
-    #     end_date = df_selection['creation_date'].max()
-
-    print("—————————————— THREE ")
-    print(df_selection)
-
-    # Filter dataframe by date range
-    # ——————————————————— Something here doesn't work. 
-    # df_selection = df_selection[(df_selection['creation_date'] >= start_date) & (df_selection['creation_date'] <= end_date)]
-
-    # print("—————————————— FOUR ")
-    # print(df_selection)
-
+    df_selection = pd.concat([df_selection, df['creation_date']], axis=1) # Append Date Column
     df_selection.set_index('creation_date', inplace = True) # Set Date as Index
-
-    print("—————————————— FIVE ")
-    print(df_selection)
 
     color_discrete_map = {
         'area_score_physical_health' : 'rgb(83,179,139)',
@@ -239,11 +227,13 @@ def update_areas_graph(selected_area, average_slider_value) :
         height = 700,
         color_discrete_map = color_discrete_map,
     )
+
     fig.data = [t for t in fig.data if t.mode == "lines"]
     fig.update_traces(
         showlegend = True,
         line = dict(width = 1)
     )
+
     # Set legend names 
     newnames = {
         'area_score_physical_health' : 'Physical Health',
@@ -285,5 +275,5 @@ def display_journal(hoverData) :
 if __name__ == '__main__':
     app.run_server(
         debug = False,
-        dev_tools_hot_reload = False
-    )
+        dev_tools_hot_reload = True
+    ) 
